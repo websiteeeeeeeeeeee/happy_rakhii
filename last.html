@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Beloved Sister - Raksha Bandhan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+        
+        .fade-in-image {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInImage 1.5s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInImage {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 1.8s;
+        }
+        
+        .delay-2 {
+            animation-delay: 3.2s;
+        }
+        
+        /* Raining Rakhi Animation */
+        .rakhi-rain {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+        
+        .rakhi-fall {
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Custom text styling */
+        .elegant-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+        
+        .heart-pulse {
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        /* Pink heading styling */
+        .pink-heading {
+            background: linear-gradient(135deg, #ec4899, #f472b6, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(236, 72, 153, 0.2);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col items-center justify-center relative">
+    
+    <!-- Raining Rakhi Background Animation -->
+    <div id="rakhiRain" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <!-- Main Content Container -->
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
+        
+        <!-- Pink Heading -->
+        <div class="mb-8 md:mb-12 fade-in-up">
+            <h1 class="pink-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold tracking-wider">
+                Happy Raksha Bandhan
+            </h1>
+        </div>
+        
+        <!-- Image Container -->
+        <div class="mb-8 md:mb-12">
+            <img 
+                id="sisterImage" 
+                src="./last.jpg" 
+                alt="Raksha Bandhan" 
+                class="fade-in-image w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-2xl shadow-2xl"
+            >
+        </div>
+        
+        <!-- Text Lines Container -->
+        <div class="text-center space-y-4 md:space-y-6 max-w-md md:max-w-lg">
+            
+            <!-- Line 1 -->
+            <div class="fade-in-up delay-1">
+                <p class="elegant-text text-lg md:text-xl lg:text-2xl text-gray-700">
+                    No matter how far we are…
+                </p>
+            </div>
+            
+            <!-- Line 2 -->
+            <div class="fade-in-up delay-2">
+            <p class="elegant-text font-medium text-2xl md:text-4xl lg:text-5xl text-red-600 flex items-center justify-center gap-2" style="margin-top: 1.5rem; font-weight: 500;">
+    I'll always protect you 
+    <span class="heart-pulse text-red-500 text-3xl md:text-5xl">❤️</span>
+</p>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script>
+        // Raining Rakhi Animation
+        function createRakhiRain() {
+            const rakhiRainContainer = document.getElementById('rakhiRain');
+            
+            // Create SVG Rakhi elements since we can't use external images
+            function createRakhiSVG() {
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '20');
+                svg.setAttribute('height', '20');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.innerHTML = `
+                    <circle cx="12" cy="12" r="8" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.7"/>
+                    <circle cx="12" cy="12" r="4" fill="#fbbf24" opacity="0.6"/>
+                    <path d="M12 4v16M4 12h16" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+                `;
+                return svg;
+            }
+            
+            function createFallingRakhi() {
+                const rakhiElement = document.createElement('div');
+                rakhiElement.className = 'rakhi-rain rakhi-fall';
+                rakhiElement.appendChild(createRakhiSVG());
+                
+                // Random horizontal position
+                rakhiElement.style.left = Math.random() * 100 + 'vw';
+                
+                // Random animation duration between 8-15 seconds
+                const duration = Math.random() * 7 + 8;
+                rakhiElement.style.animationDuration = duration + 's';
+                
+                // Random delay
+                rakhiElement.style.animationDelay = Math.random() * 2 + 's';
+                
+                rakhiRainContainer.appendChild(rakhiElement);
+                
+                // Remove element after animation completes
+                setTimeout(() => {
+                    if (rakhiElement.parentNode) {
+                        rakhiElement.parentNode.removeChild(rakhiElement);
+                    }
+                }, (duration + 2) * 1000);
+            }
+            
+            // Create initial rakhis
+            for (let i = 0; i < 8; i++) {
+                setTimeout(createFallingRakhi, i * 800);
+            }
+            
+            // Continue creating rakhis every 2 seconds
+            setInterval(createFallingRakhi, 2000);
+        }
+        
+        // Error handling for image loading
+        document.getElementById('sisterImage').addEventListener('error', function() {
+            // If image fails to load, create a placeholder with Rakhi design
+            this.style.display = 'none';
+            const placeholder = document.createElement('div');
+            placeholder.className = 'fade-in-image w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-orange-200 to-red-200 rounded-2xl shadow-2xl flex items-center justify-center';
+            placeholder.innerHTML = `
+                <div class="text-center">
+                    <div class="text-6xl mb-2">🎁</div>
+                    <p class="text-gray-600 elegant-text">Raksha Bandhan</p>
+                </div>
+            `;
+            this.parentNode.appendChild(placeholder);
+        });
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', function() {
+            // Start raining animation after a short delay
+            setTimeout(createRakhiRain, 1000);
+        });
+        
+        // Add subtle parallax effect on scroll (optional enhancement)
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const rakhiElements = document.querySelectorAll('.rakhi-rain');
+            rakhiElements.forEach(rakhi => {
+                rakhi.style.transform = `translateY(${scrolled * 0.2}px)`;
+            });
+        });
+    </script>
+
+</body>
+</html>
